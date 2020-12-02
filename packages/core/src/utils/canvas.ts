@@ -28,7 +28,48 @@ export function flatNodes(
   return result;
 }
 
-export function getParent(pens: Pen[], child: Node): Node {
+export function find(idOrTag: string, pens: Pen[]) {
+  const result: Pen[] = [];
+  pens.forEach((item) => {
+    if (item.id === idOrTag || item.tags.indexOf(idOrTag) > -1) {
+      result.push(item);
+    }
+
+    if ((item as any).children) {
+      const children: any = find(idOrTag, (item as any).children);
+      if (children && children.length > 1) {
+        result.push.apply(result, children);
+      } else if (children) {
+        result.push(children);
+      }
+    }
+  });
+
+  if (result.length === 0) {
+    return;
+  } else if (result.length === 1) {
+    return result[0];
+  }
+
+  return result;
+}
+
+export function del(idOrTag: string, pens: Pen[]) {
+  const deleted: Pen[] = [];
+  for (let i = 0; i < pens.length; i++) {
+    if (pens[i].id === idOrTag || pens[i].tags.indexOf(idOrTag) > -1) {
+      deleted.push(pens[i]);
+      pens.splice(i, 1);
+      --i;
+    } else if ((pens[i] as any).children) {
+      deleted.push.apply(deleted, del(idOrTag, (pens[i] as any).children));
+    }
+  }
+
+  return deleted;
+}
+
+export function getParent(pens: Pen[], child: Pen): Node {
   let parent: Node;
   for (const item of pens) {
     if (item.type) {

@@ -25,7 +25,7 @@ export class DivLayer extends Layer {
 
   private subcribe: Observer;
   private subcribeNode: Observer;
-  constructor(public parentElem: HTMLElement, public options: Options = {}, TID: String) {
+  constructor(public parentElem: HTMLElement, public options: Options = {}, TID: string) {
     super(TID);
     this.data = Store.get(this.generateStoreKey('topology-data'));
     if (!this.options.playIcon) {
@@ -108,11 +108,19 @@ export class DivLayer extends Layer {
       }
       this.setElemPosition(node, (this.videos[node.id] && this.videos[node.id].player) || this.addMedia(node, 'video'));
     }
+
     if (node.iframe) {
-      if (this.iframes[node.id] && this.iframes[node.id].src !== node.iframe) {
-        this.iframes[node.id].src = node.iframe;
+      if (!this.iframes[node.id]) {
+        this.addIframe(node);
+        setTimeout(() => {
+          this.addDiv(node);
+        });
+      } else {
+        if (this.iframes[node.id].src !== node.iframe) {
+          this.iframes[node.id].src = node.iframe;
+        }
+        this.setElemPosition(node, this.iframes[node.id]);
       }
-      this.setElemPosition(node, this.iframes[node.id] || this.addIframe(node));
     }
 
     if (node.elementId) {

@@ -3,7 +3,6 @@ import { Store } from 'le5le-store';
 import { s8 } from '../utils/uuid';
 import { Point } from './point';
 import { Rect } from './rect';
-import { pointInRect } from '../utils/canvas';
 import { EventType, EventAction } from './event';
 
 import { Lock } from './status';
@@ -81,7 +80,7 @@ export abstract class Pen {
   title: string;
 
   events: { type: EventType; action: EventAction; value: string; params: string; name?: string }[] = [];
-  private eventFns: string[] = ['link', 'doAnimate', 'doFn', 'doWindowFn'];
+  private eventFns: string[] = ['link', 'doAnimate', 'doFn', 'doWindowFn', '', 'stopAnimate'];
 
   parentId: string;
   rectInParent: {
@@ -109,6 +108,7 @@ export abstract class Pen {
   value: number;
   constructor(json?: any) {
     if (json) {
+      this.TID = json.TID;
       this.id = json.id || s8();
       this.name = json.name || '';
       this.value = json.value;
@@ -119,9 +119,7 @@ export abstract class Pen {
       this.dash = json.dash || 0;
       this.lineDash = json.lineDash;
       this.lineDashOffset = json.lineDashOffset || 0;
-      if (json.lineWidth || json.lineWidth === 0) {
-        this.lineWidth = json.lineWidth;
-      }
+      this.lineWidth = json.lineWidth || 1;
       this.strokeStyle = json.strokeStyle || '';
       this.fillStyle = json.fillStyle || '';
       this.lineCap = json.lineCap;
@@ -154,7 +152,12 @@ export abstract class Pen {
       this.hideRotateCP = json.hideRotateCP;
       this.hideSizeCP = json.hideSizeCP;
       this.hideAnchor = json.hideAnchor;
-      this.events = json.events || [];
+      if (json.events) {
+        this.events = JSON.parse(JSON.stringify(json.events));
+      } else {
+        this.events = [];
+      }
+
       this.markdown = json.markdown;
       this.tipId = json.tipId;
       this.title = json.title;
@@ -252,18 +255,6 @@ export abstract class Pen {
     }
   }
 
-  hit(point: Point, padding = 0) {
-    if (this.rotate % 360 === 0) {
-      return this.rect.hit(point, padding);
-    }
-
-    const pts = this.rect.toPoints();
-    for (const pt of pts) {
-      pt.rotate(this.rotate, this.rect.center);
-    }
-    return pointInRect(point, pts);
-  }
-
   click() {
     if (!this.events) {
       return;
@@ -297,7 +288,7 @@ export abstract class Pen {
     msg: any,
     client: any
   ) {
-    if (item.action < EventAction.Function) {
+    if (item.action < EventAction.Function || item.action === EventAction.StopAnimate) {
       this[this.eventFns[item.action]](msg.value || msg || item.value, msg.params || item.params, client);
     } else if (item.action < EventAction.SetProps) {
       this[this.eventFns[item.action]](item.value, msg || item.params, client);
@@ -360,7 +351,7 @@ export abstract class Pen {
     return this.TID;
   }
 
-  setTID(id) {
+  setTID(id: string) {
     this.TID = id;
     return this;
   }
@@ -370,10 +361,21 @@ export abstract class Pen {
   }
 
   private doAnimate(tag: string, params: string) {
-    this.animateStart = Date.now();
+    if (!tag) {
+      this.animateStart = Date.now();
+    }
     Store.set(this.generateStoreKey('LT:AnimatePlay'), {
       tag,
-      pen: this,
+    });
+  }
+
+  private stopAnimate(tag: string, params: string) {
+    if (!tag) {
+      this.animateStart = 0;
+    }
+    Store.set(this.generateStoreKey('LT:AnimatePlay'), {
+      tag,
+      stop: true,
     });
   }
 
@@ -402,5 +404,6 @@ export abstract class Pen {
   abstract animate(now: number): void;
   abstract translate(x: number, y: number): void;
   abstract scale(scale: number, center?: Point): void;
+  abstract hit(point: Point, padding?: number): any;
   abstract clone(): Pen;
 }

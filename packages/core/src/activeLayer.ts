@@ -38,7 +38,7 @@ export class ActiveLayer extends Layer {
 
   rotating = false;
 
-  constructor(public options: Options = {}, TID: String) {
+  constructor(public options: Options = {}, TID: string) {
     super(TID);
     this.data = Store.get(this.generateStoreKey('topology-data'));
     Store.set(this.generateStoreKey('LT:ActiveLayer'), this);
@@ -329,10 +329,11 @@ export class ActiveLayer extends Layer {
       nodesLines.lines,
       this.data.pens.filter((pen: Pen) => pen.type)
     );
+    const allNodes = flatNodes(this.data.pens).nodes;
     for (const line of nodesLines.lines) {
       let nodes: Pen[] = nodesLines.nodes;
       if (this.options.autoAnchor) {
-        nodes = this.data.pens;
+        nodes = allNodes;
       }
       for (const item of nodes) {
         let cnt = 0;
