@@ -7,7 +7,7 @@
     "le5le": "ng serve --open --host=local.le5le.com --port=3020",
     "build": "ng build --prod"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~9.1.6",
     "@angular/common": "~9.1.6",
