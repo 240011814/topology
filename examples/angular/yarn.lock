@@ -3532,10 +3532,10 @@ file-loader@6.0.0:
     loader-utils "^2.0.0"
     schema-utils "^2.6.5"
 
-file-saver@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npm.taobao.org/file-saver/download/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
-  integrity sha1-BtbnKKnqLfLM4vjZ6E383DOOwXo=
+file-saver@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
 file-uri-to-path@1.0.0:
   version "1.0.0"
@@ -5010,10 +5010,12 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-le5le-components@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.npm.taobao.org/le5le-components/download/le5le-components-0.9.1.tgz#2835e9d16b4c8695d442cbf61b2f181a90bc8b99"
-  integrity sha1-KDXp0WtMhpXUQsv2Gy8YGpC8i5k=
+le5le-components@^0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/le5le-components/-/le5le-components-0.9.4.tgz#db0d0f47c9bca04b263568826f9346120af06b84"
+  integrity sha512-SWZ0ITqA5QhQMG390agXN28jfkvlrOMJLiObqDFUrn0CLN+MFqjfJXBfg9aubSBl17Mu+Z5lWFjW3gRVnnf2iA==
+  dependencies:
+    tslib "^1.10.0"
 
 le5le-store@^1.0.7:
   version "1.0.7"
@@ -5580,15 +5582,17 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   resolved "https://registry.npm.taobao.org/neo-async/download/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha1-rCetpmFn+ohJpq3dg39rGJrSCBw=
 
-ngresizable@^1.0.0:
+ngresizable@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/ngresizable/download/ngresizable-1.0.1.tgz#d7c309ce9f762289d4d8950fd7b46f3e3108be82"
-  integrity sha1-18MJzp92IonU2JUP17RvPjEIvoI=
+  resolved "https://registry.yarnpkg.com/ngresizable/-/ngresizable-1.0.1.tgz#d7c309ce9f762289d4d8950fd7b46f3e3108be82"
+  integrity sha512-S8K2mp2+fOH9fc6A2gw5/0j8snFaBI3umdZUGsLik4qIjbVPx6Tnn5AKI8RHyLTDooxPHzJdQZqK061UbzWogA==
 
-ngx-color-picker@^8.1.0:
-  version "8.2.0"
-  resolved "https://registry.npm.taobao.org/ngx-color-picker/download/ngx-color-picker-8.2.0.tgz#36b2e7f173e006f680dea39743d0bfc6c2531454"
-  integrity sha1-NrLn8XPgBvaA3qOXQ9C/xsJTFFQ=
+ngx-color-picker@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-10.1.0.tgz#19a6993a74bb3553024623b20ca6ebffd2c50f9c"
+  integrity sha512-Q3BILkQP+l+dcX0joe7+xuHDKydhGnG09sUG1FmlLZFYIEX4+AQqHULh+hUAci8kZlLZuOG+mB2Uq54QYadItw==
+  dependencies:
+    tslib "^2.0.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -7208,10 +7212,17 @@ rxjs@6.5.4:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^6.5.3, rxjs@~6.5.4:
+rxjs@^6.5.3:
   version "6.5.5"
   resolved "https://registry.npm.taobao.org/rxjs/download/rxjs-6.5.5.tgz#c5c884e3094c8cfee31bf27eb87e54ccfc87f9ec"
   integrity sha1-xciE4wlMjP7jG/J+uH5UzPyH+ew=
+  dependencies:
+    tslib "^1.9.0"
+
+rxjs@~6.6.3:
+  version "6.6.3"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.3.tgz#8ca84635c4daa900c0d3967a6ee7ac60271ee552"
+  integrity sha512-trsQc+xYYXZ3urjOiJOuCOa5N3jAZ3eiSpQB5hIT8zGlL2QfnHLJ2r7GMkBGuIausdJN1OneaI6gQlsqNHHmZQ==
   dependencies:
     tslib "^1.9.0"
 
@@ -8261,10 +8272,10 @@ tree-kill@1.2.2:
   resolved "https://registry.npm.taobao.org/tree-kill/download/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha1-TKCakJLIi3OnzcXooBtQeweQoMw=
 
-ts-clipboard@^1.0.15:
+ts-clipboard@^1.0.17:
   version "1.0.17"
-  resolved "https://registry.npm.taobao.org/ts-clipboard/download/ts-clipboard-1.0.17.tgz#0becebbfc07804bfcad574cec6c3ae30845632e9"
-  integrity sha1-C+zrv8B4BL/K1XTOxsOuMIRWMuk=
+  resolved "https://registry.yarnpkg.com/ts-clipboard/-/ts-clipboard-1.0.17.tgz#0becebbfc07804bfcad574cec6c3ae30845632e9"
+  integrity sha512-MhkrD2hXmjIpDrHkTjjWrDA33qCt7ReHjYoxr8zZD9nUmQN2ne0H83rydZ8zueSrYRoMSYY+qQHmYFume/pBiA==
 
 ts-node@~8.3.0:
   version "8.3.0"
@@ -8295,6 +8306,11 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.13.0"
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha1-yIHhPMcBWJTtkUhi0nZDb6mkcEM=
+
+tslib@^2.0.0, tslib@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
 
 tslint@~6.1.0:
   version "6.1.2"
@@ -9044,7 +9060,9 @@ yn@^3.0.0:
   resolved "https://registry.npm.taobao.org/yn/download/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha1-HodAGgnXZ8HV6rJqbkwYUYLS61A=
 
-zone.js@~0.10.2:
-  version "0.10.3"
-  resolved "https://registry.npm.taobao.org/zone.js/download/zone.js-0.10.3.tgz#3e5e4da03c607c9dcd92e37dd35687a14a140c16"
-  integrity sha1-Pl5NoDxgfJ3NkuN901aHoUoUDBY=
+zone.js@~0.11.3:
+  version "0.11.3"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.11.3.tgz#255a6313174731cc014d63233ef04fd9858da375"
+  integrity sha512-Y4hTHoh4VcxU5BDGAqEoOnOiyT254w6CiHtpQxAJUSMZPyVgdbKf+5R7Mwz6xsPhMIeBXk5rTopRZDpjssTCUg==
+  dependencies:
+    tslib "^2.0.0"

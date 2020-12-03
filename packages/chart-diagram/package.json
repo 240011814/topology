@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/le5le-com/topology#readme",
   "peerDependencies": {
-    "@topology/core": "^0.3.0"
+    "@topology/core": "^0.3.12"
   },
   "publishConfig": {
     "access": "public"
