@@ -34,7 +34,7 @@ export class AnimateLayer extends Layer {
       (params: { tag: string; stop?: boolean }) => {
         if (params.stop && params.tag) {
           const pen = find(params.tag, this.data.pens);
-          if ((pen as any)?.id) {
+          if ((pen as any).id) {
             if (this.pens.has((pen as any).id)) {
               this.pens.get((pen as any).id).animateStart = 0;
             }

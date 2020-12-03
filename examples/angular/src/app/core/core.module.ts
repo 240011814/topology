@@ -51,7 +51,7 @@ export class CoreModule {
     this.onProfile();
   }
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
       providers: []
