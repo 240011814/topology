@@ -233,7 +233,7 @@
         <i class="iconfont icon-upload"></i>
       </a>
     </div>
-    <div class="item" [class.disabled]="!file.id" [title]="file.id && file.shared ? '已分享，点击取消' : '分享'">
+    <div *ngIf="false" class="item" [class.disabled]="!file.id" [title]="file.id && file.shared ? '已分享，点击取消' : '分享'">
       <a (click)="onMenu('share')">
         <i class="iconfont icon-share" [class.primary]="file.id && file.shared"></i>
       </a>

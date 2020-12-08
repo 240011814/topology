@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppHttpInterceptor } from './http/http.interceptor';
@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
+import { GlobalErrorHandler } from './core/GlobalErrorHandler';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { HomeModule } from './home/home.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptor,
       multi: true
-    }
+    },
+    {provide: ErrorHandler, useClass: GlobalErrorHandler} 
   ],
   bootstrap: [AppComponent]
 })

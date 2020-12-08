@@ -11,6 +11,12 @@
     "secure": false
   },
 
+  "/mz/*": {
+    "target": "http://localhost:8980",
+    "changeOrigin": true,
+    "secure": false
+  },
+
   "/image": {
     "target": "http://topology.le5le.com",
     "changeOrigin": true,

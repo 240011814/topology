@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import * as FileSaver from 'file-saver';
 
@@ -96,9 +96,12 @@ export class HttpService {
     }
   }
 
-  async PostForm(url: string, body: FormData, options?: any) {
+  async PostForm(url: string, body , options?: any) {
     url += this.queryParams;
     this.queryParams = '';
+   /* const params = new HttpParams({
+      fromObject: body
+    });  */
     try {
       return await this.http.post(url, body, options).toPromise();
     } catch (error) {

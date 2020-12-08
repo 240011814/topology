@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  token: 'token',
+  token: '__sid',
+  baseUrl: '/mz',
   urls: {
     account: 'http://account.le5le.com'
   }

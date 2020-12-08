@@ -16,6 +16,8 @@ export class UserComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.user = JSON.parse( localStorage.getItem('user'));
+    console.log(this.user);
     Store.subscribe('user', (user: any) => {
       this.user = user;
     });

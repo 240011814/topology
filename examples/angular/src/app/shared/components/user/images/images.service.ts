@@ -1,26 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Store } from 'le5le-store';
+import { Store } from "le5le-store";
 
-import { HttpService } from 'src/app/http/http.service';
+import { HttpService } from "src/app/http/http.service";
 
 @Injectable()
 export class UserImagesService {
-  constructor(protected http: HttpService) { }
+  constructor(protected http: HttpService) {}
 
-  static images: { id: string; image: string; }[];
+  static images: { id: string; filePath: string }[];
 
   async Upload(blob: Blob, filename: string) {
-    const form = new FormData();
-    form.append('path', filename);
-    form.append('randomName', '1');
-    form.append('public', 'true');
-    form.append('file', blob);
-    const ret = await this.http.PostForm('/api/image', form);
-    if (ret.error) {
-      return null;
-    }
+    /*  const form = {
+      'tobImage.isPublic': 'false',
+      'file': blob
+    }  */
 
+    const form = new FormData();
+    form.append("tenantId", localStorage.getItem("tenantId"));
+    form.append("projectId", localStorage.getItem("projectId"));
+    form.append("isPublic", "false");
+    form.append("file", blob);
+    const ret = await this.http.PostForm("/a/tob/tobImage/upload", form);  
     return ret;
   }
 
@@ -29,38 +30,43 @@ export class UserImagesService {
       return UserImagesService.images;
     }
 
-    if (!Store.get('user')) {
+    if (!localStorage.getItem("user")) {
       return [];
     }
 
-    const ret = await this.http
+    const { list } = await this.http
       .QueryString({
         pageIndex: 1,
-        pageCount: 100,
-        count: 0
+        pageSize: 100,
+        count: 0,
       })
-      .Get('/api/user/images');
-    if (ret.error) {
-      return [];
-    }
+      .Get("/a/tob/tobImage/listData.json");
+    UserImagesService.images = list.map((x) => {
+      if (x.filePath.startsWith('userfiles')) {
+        x.filePath = "mz/" + x.filePath;
+      }
+      return x;
+    });
 
-    UserImagesService.images = ret.list;
-
-    return ret.list || [];
+    return UserImagesService.images ;
   }
 
   async AddImage(image: string) {
-    const ret = await this.http.Post('/api/user/image', { image: image });
-    if (ret.error) {
-      return '';
-    }
-
-    return ret.id;
+    let data = {
+      tenantId: localStorage.getItem("tenantId"),
+      projectId: localStorage.getItem("projectId"),
+      isPublic: "false",
+      filePath: image,
+    };
+    const ret = await this.http.Post("/a/tob/tobImage/save.json", data);
+    return ret;
   }
 
   async RemoveImage(id: string) {
-    const ret = await this.http.Delete('/api/user/image/' + id);
-    if (ret.error) {
+    const { result } = await this.http.Get(
+      "/a/tob/tobImage/delete.json?id=" + id
+    );
+    if (result !== "true") {
       return false;
     }
 

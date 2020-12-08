@@ -15,7 +15,7 @@ export class UserImagesComponent implements OnInit {
 
   @Input() tool = false;
 
-  images: { id: string; image: string; }[];
+  images: { id: string; filePath: string; }[];
   constructor(private service: UserImagesService, public el: ElementRef) {
   }
 
@@ -29,14 +29,12 @@ export class UserImagesComponent implements OnInit {
     input.onchange = async event => {
       const elem: any = event.target;
       if (elem.files && elem.files[0]) {
-        const file = await this.service.Upload(elem.files[0], elem.files[0].name);
-        if (!file) {
+        const {result} = await this.service.Upload(elem.files[0], elem.files[0].name);
+        if (result != 'true') {
           return;
-        }
-        this.image = file.url;
-        const id = await this.service.AddImage(file.url);
-        this.images.unshift({ id, image: file.url });
+        }       
         this.imageChange.emit(this.image);
+        this.images = await this.service.GetImages();
       }
     };
     input.click();
@@ -56,9 +54,9 @@ export class UserImagesComponent implements OnInit {
         }
 
         this.image = ret;
-        const id = await this.service.AddImage(ret);
-        this.images.unshift({ id, image: ret });
+         await this.service.AddImage(ret);
         this.imageChange.emit(this.image);
+        this.images = await this.service.GetImages();
       }
     });
   }
@@ -71,7 +69,7 @@ export class UserImagesComponent implements OnInit {
   }
 
   onClickImage(item: any) {
-    this.image = item.image;
+    this.image = item.filePath;
     this.imageChange.emit(this.image);
   }
 
@@ -83,7 +81,7 @@ export class UserImagesComponent implements OnInit {
           width: 100,
           height: 100
         },
-        image: image.image
+        image: image.filePath
       }));
     }
   }

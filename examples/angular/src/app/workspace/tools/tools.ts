@@ -4,6 +4,25 @@ export const Tools = [
     expand: true,
     list: [
       {
+        name: '测试',
+        icon: 'icon-rect',
+        data: {
+          text: 'Topology',
+          rect: {
+            width: 100,
+            height: 100
+          },
+          paddingLeft: 10,
+          paddingRight: 10,
+          paddingTop: 10,
+          paddingBottom: 10,
+          name: 'test',
+          icon: '\ue64d',
+          iconFamily: 'topology',
+          iconColor: '#2f54eb'
+        }
+      },
+      {
         name: 'rectangle',
         icon: 'icon-rect',
         data: {

@@ -98,12 +98,17 @@ export class CoreModule {
   }
 
   async onProfile(): Promise<void> {
-    const ret = await this._httpService.Get('/api/user/profile');
-    if (ret.error) {
-      return;
+    try {
+    /*  const ret = await this._httpService.Get('/api/user/profile');
+      if (ret.error) {
+        return;
+      }
+  
+      ret.usernamePinyin = this._coreService.getPinyin(ret.username);
+      Store.set('user', ret);  */
+    } catch (error) {
+      
     }
-
-    ret.usernamePinyin = this._coreService.getPinyin(ret.username);
-    Store.set('user', ret);
+   
   }
 }

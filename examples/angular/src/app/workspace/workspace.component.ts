@@ -286,29 +286,31 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
   }
 
   async onOpen(data: { id: string; version?: string }) {
-    const ret = await this.service.Get(data);
-    if (!ret) {
+    const {diagram} = await this.service.Get(data);
+    if (!diagram) {
       this.router.navigateByUrl('/workspace');
       return;
     }
     Store.set('recently', {
-      id: ret.id,
-      version: ret.version,
-      image: ret.image,
-      name: ret.name,
+      id: diagram.id,
+      version: '1.0',
+      image: 'mz/userfiles/' + diagram.previewImagePath,
+      name: diagram.name,
     });
 
-    if (this.user && ret.userId !== this.user.id) {
-      ret.shared = false;
-      ret.id = '';
-    }
-    this.data = ret;
-    Store.set('lineName', ret.data.lineName);
-    Store.set('fromArrow', ret.data.fromArrow);
-    Store.set('toArrow', ret.data.toArrow);
-    Store.set('scale', ret.data.scale);
-    Store.set('locked', ret.data.locked);
-    this.canvas.open(ret.data);
+    this.data = {
+      id: diagram.id,
+      version: '1.0',
+      image: 'mz/userfiles/' + diagram.previewImagePath,
+      name: diagram.name,
+      data: JSON.parse(diagram.data)
+    };
+    Store.set('lineName', this.data.data.lineName);
+    Store.set('fromArrow', this.data.data.fromArrow);
+    Store.set('toArrow', this.data.data.toArrow);
+    Store.set('scale', this.data.data.scale);
+    Store.set('locked', this.data.data.locked);
+    this.canvas.open(this.data.data);
 
     Store.set('file', this.data);
   }
@@ -375,25 +377,26 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
     if (!this.canvas) {
       return;
     }
+   
     this.data.data = this.canvas.data;
     this.canvas.toImage(2, 'image/png', 1, async (blob) => {
-      if (this.data.id && !this.coreService.isVip(this.user)) {
+     /* if (this.data.id && !this.coreService.isVip(this.user)) {
         if (!(await this.service.DelImage(this.data.image))) {
           return;
         }
-      }
+      }  */
 
-      const file = await this.service.Upload(blob, this.data.shared);
+   /*   const file = await this.service.Upload(blob, this.data.shared);
       if (!file) {
         return;
-      }
-      this.data.image = file.url;
+      }  */
+    //  this.data.image = file.url;
 
       if (this.data.component) {
         this.data.componentData = this.canvas.toComponent();
       }
-
-      const ret = await this.service.Save(this.data);
+      console.log(this.data);
+      const ret = await this.service.Save(this.data, blob);
       if (ret) {
         Store.set('file', this.data);
         const _noticeService: NoticeService = new NoticeService();

@@ -3,16 +3,13 @@
     <div class="item">
       <a (click)="onLogin()">登录</a>
     </div>
-    <div class="item">
-      <a class="button" (click)="onSignup()">免费使用</a>
-    </div>
   </div>
   <div class="flex" *ngIf="user">
     <div class="item">
       <a class="flex middle" style="display: flex">
-        <ui-avatar class="mr10" [letters]="user.usernamePinyin" [img]="user.avatarUrl" [colors]="['#1890ff']">
+        <ui-avatar class="mr10" [letters]="user.usernamePinyin" [img]="'mz/'+ user.avatar" [colors]="['#1890ff']">
         </ui-avatar>
-        {{ user.username }}
+        {{ user.userName }}
         <i class="iconfont icon-angle-down ml5"></i>
       </a>
       <div class="dropdown right">

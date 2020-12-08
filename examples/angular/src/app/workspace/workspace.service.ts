@@ -6,6 +6,8 @@ import { register as registerSequence } from '@topology/sequence-diagram';
 import { register as registerChart } from '@topology/chart-diagram';
 
 import { HttpService } from 'src/app/http/http.service';
+import { registerNode } from '@topology/core';
+import { Test } from '../device-diagram/test';
 
 @Injectable()
 export class WorkspaceService {
@@ -17,10 +19,12 @@ export class WorkspaceService {
     registerClass();
     registerSequence();
     registerChart();
+    let test = new Test();
+    registerNode('test', test.shape, null, test.iconRect, test.textRect);
   }
 
   async Get(data: any) {
-    const ret = await this.http.QueryString({ version: data.version, view: 1 }).Get('/api/topology/' + data.id);
+    const ret = await this.http.Get('/a/tob/diagram/form.json?id=' + data.id);
     if (ret.error) {
       return null;
     }
@@ -60,7 +64,7 @@ export class WorkspaceService {
     return ret.id;
   }
 
-  async Save(data: any) {
+  async Save(data: any, blob) {
     data = Object.assign({}, data);
     for (const item of data.data.pens) {
       delete item.elementLoaded;
@@ -70,16 +74,16 @@ export class WorkspaceService {
     if (!data.name) {
       data.name = `Created at ${new Date().toLocaleString()}`;
     }
-    if (data.id) {
-      ret = await this.http.Put('/api/user/topology', data);
-    } else {
-      ret = await this.http.Post('/api/user/topology', data);
+    const form = new FormData();
+    if(data.id != '') {
+      form.append("id", data.id);
     }
-
-    if (ret.error) {
-      return null;
-    }
-
+    form.append("tenantId", localStorage.getItem("tenantId"));
+    form.append("projectId", localStorage.getItem("projectId"));
+    form.append("file", blob);
+    form.append("name", data.name);
+    form.append("data", JSON.stringify(data.data));
+    ret = await this.http.PostForm('/a/tob/diagram/save.json', form);
     return ret;
   }
 
