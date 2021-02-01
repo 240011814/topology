@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('token', params.get('sid'));
       this.userService.getUserInfo().subscribe(x => {
         console.log(x)
-        if(x.state === 'true') {
+        if(x.result === 'true') {
           localStorage.setItem('user', JSON.stringify( x.user));
           this.router.navigateByUrl(`/workspace`);
         }

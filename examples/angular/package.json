@@ -17,26 +17,28 @@
     "@angular/platform-browser": "~11.0.3",
     "@angular/platform-browser-dynamic": "~11.0.3",
     "@angular/router": "~11.0.3",
-    "rxjs": "~6.6.3",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.11.3",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.5",
     "le5le-components": "^0.9.4",
     "le5le-store": "^1.0.7",
     "le5le-ui": "^0.8.5",
+    "ng-zorro-antd": "^11.1.0",
     "ngresizable": "^1.0.1",
     "ngx-color-picker": "^10.1.0",
-    "ts-clipboard": "^1.0.17"
+    "rxjs": "~6.6.3",
+    "ts-clipboard": "^1.0.17",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.3",
     "@angular/cli": "~11.0.3",
     "@angular/compiler-cli": "~11.0.3",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "copyfiles": "^2.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -46,10 +48,9 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.0.5",
-    "copyfiles": "^2.0.0",
     "tsickle": "^0.35.0",
-    "typedoc": "^0.15.0"
+    "tslint": "~6.1.0",
+    "typedoc": "^0.15.0",
+    "typescript": "~4.0.5"
   }
 }
