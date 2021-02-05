@@ -34,7 +34,7 @@ export class UserImagesComponent implements OnInit {
           return;
         }       
         this.imageChange.emit(this.image);
-        this.images = await this.service.GetImages();
+        this.images = await this.service.GetImages(false);
       }
     };
     input.click();

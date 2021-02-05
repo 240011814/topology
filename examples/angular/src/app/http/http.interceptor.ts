@@ -106,14 +106,17 @@ export class AppHttpInterceptor implements HttpInterceptor {
         //  错误内容：{ status: 1, msg: '非法参数' }
         //  正确内容：{ status: 0, response: {  } }
         // 则以下代码片断可直接适用
+ 
         if (ev instanceof HttpResponse) {
           const result = ev.body ;
-          if (result && result.Type) {
-            switch (result.Type) {           
-              default:
-                const type = result.Type ;
-                break;
-            }
+          if ('result' in result && result.result =='login') {
+            this.notification.notice(
+              { 
+               title:  `请求错误 ${ev.status}: ${ev.url}`,
+               body: '请重新登录',
+               theme: 'error',
+               timeout: 10000
+             });
           }
         }
         break;

@@ -25,10 +25,12 @@ export class UserImagesService {
     return ret;
   }
 
-  async GetImages() {
+  async GetImages(cache = true) {
+    if(cache){
     if (UserImagesService.images) {
       return UserImagesService.images;
     }
+  }
 
     if (!localStorage.getItem("user")) {
       return [];
