@@ -17,10 +17,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse( localStorage.getItem('user'));
-    console.log(this.user);
-    Store.subscribe('user', (user: any) => {
+    Store.set('user', this.user);
+   /* Store.subscribe('user', (user: any) => {
       this.user = user;
-    });
+    }); */
   }
 
   onSignup() {

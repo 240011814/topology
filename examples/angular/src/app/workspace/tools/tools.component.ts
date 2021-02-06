@@ -23,7 +23,7 @@ export class ToolsComponent implements OnInit, OnDestroy {
   tab = 1;
 
   classes: any[];
-  topoTools: any[];
+  devices: any[];
 
   systemTools: any[] = Tools;
   userTools: any[] = [];
@@ -43,9 +43,40 @@ export class ToolsComponent implements OnInit, OnDestroy {
       this.user = user;
 
       if (user) {
-        this.topoTools = await this.service.GetUserTools();
-        this.userTools = [];
-        this.classifyTools(this.topoTools, this.userTools);
+        this.devices = await this.service.GetDevices();
+        this.userTools = [
+          {
+            name: '我的组件',
+            list: [],
+            expand: true,
+          },
+          {
+            name: '我的设备',
+            list: this.devices.map(x => {
+              return {
+                ...x,
+                icon: '/assets/img/bar2.png',
+                data: {
+                  text: 'Topology',
+                  rect: {
+                    width: 100,
+                    height: 100
+                  },
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  name: 'test',
+                  icon: '\ue64d',
+                  iconFamily: 'topology',
+                  iconColor: '#2f54eb'
+                }
+              }
+            }),
+            expand: true,
+          }
+        ];
+        this.classifyTools(this.devices, this.userTools);
       }
     });
 
@@ -59,7 +90,7 @@ export class ToolsComponent implements OnInit, OnDestroy {
       }
       this.classes = Object.assign([], classes);
       this.userTools = [];
-      this.classifyTools(this.topoTools, this.userTools);
+      this.classifyTools(this.devices, this.userTools);
     });
 
     this.topologyTools = (window as any).topologyTools;

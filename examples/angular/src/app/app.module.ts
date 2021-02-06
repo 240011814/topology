@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { GlobalErrorHandler } from './core/GlobalErrorHandler';
+import { NzButtonModule} from 'ng-zorro-antd/button'
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +25,9 @@ import { GlobalErrorHandler } from './core/GlobalErrorHandler';
     SharedModule,
     CoreModule.forRoot(),
     AppRoutingModule,
-    HomeModule
+    HomeModule,
+    NzButtonModule,
+    NzGridModule
   ],
   providers: [
     {

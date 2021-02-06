@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --port=3020",
-    "le5le": "ng serve --open --host=local.le5le.com --port=3020",
+    "start": "ng serve  --port=3000",
+    "le5le": "ng serve --open --host=local.le5le.com --port=3000",
     "build": "ng build --prod"
   },
   "private": false,

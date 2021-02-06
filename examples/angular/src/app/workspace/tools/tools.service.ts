@@ -36,4 +36,21 @@ export class ToolsService {
 
     return ret.list;
   }
+
+
+  async GetDevices() {
+    const {list} = await this.http.PostForm( '/a/tob/device/listData',{
+      pageIndex: 1,
+      pageSize: 1000,
+      tenantId: localStorage.getItem("projectId"),
+      projectId: localStorage.getItem("tenantId") 
+    });
+  
+
+    for (const item of list) {
+      item.py = this.coreService.getPinyin(item.name, true);
+    }
+
+    return list;
+  }
 }

@@ -18,10 +18,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.queryParamMap.subscribe((params) => {
       localStorage.setItem("projectId", params.get('pid'));
-      localStorage.setItem("tenantId", params.get('tid'))
+      localStorage.setItem("tenantId", params.get('tid'));
       localStorage.setItem('token', params.get('sid'));
       this.userService.getUserInfo().subscribe(x => {
-        console.log(x)
         if(x.result === 'true') {
           localStorage.setItem('user', JSON.stringify( x.user));
           this.router.navigateByUrl(`/workspace`);
